@@ -63,3 +63,36 @@ window.addEventListener('load', initDefaultDevice);
 
 // 3. Також додамо автоматичний перерахунок при зміні розміру самого вікна браузера (щоб не ламалося)
 window.addEventListener('resize', initDefaultDevice);
+
+/*-----------------------------------------------------------
+🔥 РОБОТА З GET-ПАРАМЕТРАМИ (AURA / PULSE)
+-----------------------------------------------------------*/
+function checkUrlParameters() {
+    // 1. Створюємо об'єкт для роботи з параметрами лінка
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // 2. Витягуємо значення параметра 'project'
+    const projectParam = urlParams.get('project');
+
+    if (projectParam) {
+        // Шукаємо в нашому <select> опцію, яка містить це слово (наприклад, aura чи pulse)
+        // Для цього перебираємо всі <option> всередині нашого списку
+        for (let i = 0; i < projectSelect.options.length; i++) {
+            const option = projectSelect.options[i];
+            
+            // Якщо в посиланні опції є наше слово (наприклад, "aura.html" містить "aura")
+            if (option.value.toLowerCase().includes(projectParam.toLowerCase())) {
+                
+                // Перемикаємо селект на цю опцію візуально
+                projectSelect.selectedIndex = i;
+                
+                // Оновлюємо фрейм значенням цієї опції
+                iframe.src = option.value;
+                break;
+            }
+        }
+    }
+}
+
+// Запускаємо перевірку лінка відразу при завантаженні сторінки
+window.addEventListener('DOMContentLoaded', checkUrlParameters);
