@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BynnuX - Responsive Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="control-panel">
+        <div class="select-project">
+            <label for="project-select">Choose a project:</label>
+            <select id="project-select" onchange="changeProject()">
+                <option value="https://cryprobaksbanny.github.io/One-Page-Parallax-HTML-CSS-JS/">PORTFOLIO PULS</option>
+                <option value="https://cryprobaksbanny.github.io/One-Page-AURA-HTML-CSS-JS/">AURA Design Studio</option>
+            </select>
+        </div>
+
+        <div class="device-buttons">
+            <button id="full" class="btn active" onclick="changeDevice(this, 1920, 1080)">Full HD (1920x1080)</button>
+            <button class="btn" onclick="changeDevice(this, 1440, 900)">Laptop (1440x900)</button>
+            <button id="full" class="btn" onclick="changeDevice(this, 768, 1024)">Tablet (768x1024)</button>
+            <button class="btn" onclick="changeDevice(this, 375, 812)">Mobile (375x812)</button>
+        </div>
+    </header>
+
+   <main class="preview-area">
+    <div class="screen-wrapper">
+        <iframe id="preview-iframe" src="https://cryprobaksbanny.github.io/One-Page-Parallax-HTML-CSS-JS/" frameborder="0"></iframe>
+    </div>
+</main>
+
+    <script src="script.js"></script>
+</body>
+</html>
