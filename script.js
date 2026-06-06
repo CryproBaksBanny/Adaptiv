@@ -65,31 +65,45 @@ window.addEventListener('load', initDefaultDevice);
 window.addEventListener('resize', initDefaultDevice);
 
 /*-----------------------------------------------------------
-🔥 РОБОТА З GET-ПАРАМЕТРАМИ (AURA / PULSE)
+🔥 РОБОТА З GET-ПАРАМЕТРАМИ (AURA / PULSE) — СЕЙВ ВАРІАНТ
 -----------------------------------------------------------*/
 function checkUrlParameters() {
-    // 1. Створюємо об'єкт для роботи з параметрами лінка
     const urlParams = new URLSearchParams(window.location.search);
-    
-    // 2. Витягуємо значення параметра 'project'
     const projectParam = urlParams.get('project');
 
+    console.log("Знайдено параметр у лінку project =", projectParam); // Дебаг-лог в консоль
+
     if (projectParam) {
-        // Шукаємо в нашому <select> опцію, яка містить це слово (наприклад, aura чи pulse)
-        // Для цього перебираємо всі <option> всередині нашого списку
+        let matchedIndex = -1;
+
         for (let i = 0; i < projectSelect.options.length; i++) {
             const option = projectSelect.options[i];
-            
-            // Якщо в посиланні опції є наше слово (наприклад, "aura.html" містить "aura")
-            if (option.value.toLowerCase().includes(projectParam.toLowerCase())) {
-                
-                // Перемикаємо селект на цю опцію візуально
-                projectSelect.selectedIndex = i;
-                
-                // Оновлюємо фрейм значенням цієї опції
-                iframe.src = option.value;
+            const optionValue = option.value.toLowerCase();
+            const searchWord = projectParam.toLowerCase();
+
+            // Перевіряємо: або значення опції містить слово (наприклад, 'pulse.html' містить 'pulse')
+            // або сам текст кнопки/опції містить це слово (наприклад, 'PORTFOLIO PULS')
+            if (optionValue.includes(searchWord) || option.text.toLowerCase().includes(searchWord)) {
+                matchedIndex = i;
                 break;
             }
+        }
+
+        if (matchedIndex !== -1) {
+            console.log("Успішно знайдено збіг з опцією №", matchedIndex);
+            
+            // 1. Змінюємо вибраний елемент у списку
+            projectSelect.selectedIndex = matchedIndex;
+            
+            // 2. Змінюємо посилання для iframe
+            iframe.src = projectSelect.options[matchedIndex].value;
+            
+            // 3. Оскільки iframe змінився, примусово викликаємо адаптивне масштабування для Full HD
+            if (typeof initDefaultDevice === 'function') {
+                initDefaultDevice();
+            }
+        } else {
+            console.log("Не вдалося знайти збіг для тексту:", projectParam);
         }
     }
 }
