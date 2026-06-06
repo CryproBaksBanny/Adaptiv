@@ -47,27 +47,18 @@ select {
 
 /* 1. Головна робоча зона (фон, де стоїть фрейм) */
 .preview-area {
-    flex-grow: 1;
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center; /* Центруємо сам фрейм на екрані */
-    padding: 20px;
-    background: #08080a;
-    overflow: hidden; /* Тепер скроли взагалі не з'являться, бо все буде стискатися під екран */
-    box-sizing: border-box;
+    width: 100%;
+    height: calc(100vh - 60px); /* Висота екрана мінус висота твоєї шапки з кнопками */
+    overflow: hidden;
     position: relative;
 }
 
 #preview-iframe {
-    background: #fff;
-    border: 4px solid #1a1a22;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    
-    /* Додаємо плавний перехід для масштабування разом із розмірами */
-    transition: width 0.4s ease, height 0.4s ease, transform 0.4s ease; 
-
-    /* КРИТИЧНО ВАЖЛИВО ДЛЯ SCALE: */
-    transform-origin: center center; /* Зменшуємо чітко від центру */
-    flex-shrink: 0; /* Забороняємо флексбоксу деформувати фрейм */
+    transform-origin: center center; /* Масштабування строго від центру */
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+    border: none;
+    background: #000; /* Чорний фон для фрейму, поки сайт вантажиться */
 }
